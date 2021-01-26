@@ -4,7 +4,7 @@
 
 void ExecBatchFile(char* argv[]);
 void ExecCmdLine();
-char ** ParseWithSpace(char * buf);
+//char * ParseWithDelimeter(char * buf, char * del)[10];
 
 
 int main(int argc, char* argv[])
@@ -36,16 +36,41 @@ void ExecCmdLine()
             return;
         }
 
-        char * splitedCmd[10] = ParseWithDelimeter(buffer, ";")
+        //char * splitedCmd[10] = ParseWithDelimeter(buffer, ";");
+        int cmdPids[10];
 
-        char ** splitedStr = ParseWithDelimeter(buffer, " ");
+        char *splitedCmd[10];
+        splitedCmd[0] = strtok(buffer, ";");
+        char *temp;
+        int i;
+
+        for(i=1; (temp = strtok(NULL, ";")) != NULL ; i++)
+            splitedCmd[i] = temp;
+
+        splitedCmd[i] = 0;
+
+
+
+       for(int i=0; splitedCmd[i] != NULL ; i++)
+       {
+            char *splitedStr[10];
+            splitedStr[0] = strtok(splitedCmd[i], " ");
+            char *temp;
+            int i;
+
+            for(i=1; (temp = strtok(NULL, " ")) != NULL ; i++)
+                splitedStr[i] = temp;
+
+            splitedStr[i] = 0;
+
+            int pid = fork();
         
-        
-        if(execvp("ls", splitedStr) == -1)
-            printf("execvp not activated\n"); 
+            if(pid == 0 && execvp("ls", splitedStr) == -1)
+                printf("execvp not activated\n"); 
+       }    
     }
 }
-
+/*
 char * ParseWithDelimeter(char * buf, char * del)[10]
 {
     char *splitedStr[10];
@@ -59,3 +84,4 @@ char * ParseWithDelimeter(char * buf, char * del)[10]
     splitedStr[i] = 0;
     return splitedStr;
 }
+*/

@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/wait.h>
+
 
 void ExecBatchFile(char* argv[]);
 void ExecCmdLine();
@@ -40,16 +42,16 @@ void ExecCmdLine()
         int cmdPids[10];
 
         char *splitedCmd[10];
-        splitedCmd[0] = strtok(buffer, ";");
+        splitedCmd[0] = strtok(buffer, ";\n");
         char *temp;
         int i;
 
-        for(i=1; (temp = strtok(NULL, ";")) != NULL ; i++)
+        for(i=1; (temp = strtok(NULL, ";\n")) != NULL ; i++)
             splitedCmd[i] = temp;
 
         splitedCmd[i] = 0;
 
-
+        int status;
 
        for(int i=0; splitedCmd[i] != NULL ; i++)
        {
@@ -64,24 +66,16 @@ void ExecCmdLine()
             splitedStr[i] = 0;
 
             int pid = fork();
-        
-            if(pid == 0 && execvp("ls", splitedStr) == -1)
-                printf("execvp not activated\n"); 
+
+            
+
+            if(pid == 0 )
+            {
+                if(execvp(splitedStr[0], splitedStr) == -1)
+                    printf("execvp not activated\n");                     
+            } 
+            else if(pid > 0)
+                wait(&status);
        }    
     }
 }
-/*
-char * ParseWithDelimeter(char * buf, char * del)[10]
-{
-    char *splitedStr[10];
-    splitedStr[0] = strtok(buf, del);
-    char *temp;
-    int i;
-
-    for(i=1; (temp = strtok(NULL, del)) != NULL ; i++)
-        splitedStr[i] = temp;
-
-    splitedStr[i] = 0;
-    return splitedStr;
-}
-*/

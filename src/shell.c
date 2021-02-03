@@ -52,30 +52,33 @@ void ExecCmdLine()
         splitedCmd[i] = 0;
 
         int status;
+        int pid[10];
 
-       for(int i=0; splitedCmd[i] != NULL ; i++)
+
+       for(i=0; splitedCmd[i] != NULL ; i++)
        {
             char *splitedStr[10];
             splitedStr[0] = strtok(splitedCmd[i], " ");
             char *temp;
-            int i;
+            int j;
 
-            for(i=1; (temp = strtok(NULL, " ")) != NULL ; i++)
-                splitedStr[i] = temp;
+            for(j=1; (temp = strtok(NULL, " ")) != NULL ; j++)
+                splitedStr[j] = temp;
 
-            splitedStr[i] = 0;
+            splitedStr[j] = 0;
 
-            int pid = fork();
+            pid[i] = fork();
 
-            
-
-            if(pid == 0 )
+            if(pid[i] == 0 )
             {
                 if(execvp(splitedStr[0], splitedStr) == -1)
                     printf("execvp not activated\n");                     
             } 
-            else if(pid > 0)
-                wait(&status);
-       }    
+       }
+
+       
+        for(int j = 0; j <=i; j++)
+            waitpid(pid[j], &status, 0);
+       
     }
 }

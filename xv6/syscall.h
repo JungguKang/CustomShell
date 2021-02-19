@@ -20,3 +20,5 @@
 #define SYS_link   19
 #define SYS_mkdir  20
 #define SYS_close  21
+//for lab 3
+#define SYS_my_syscall 22

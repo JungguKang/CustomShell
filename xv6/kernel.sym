@@ -1,5 +1,5 @@
 80100000 .text
-80106ec0 .rodata
+80106f20 .rodata
 80108000 .data
 8010a520 .bss
 00000000 .debug_line
@@ -16,7 +16,7 @@
 8010a558 panicked
 801003f0 consputc
 80100580 printint
-80106f30 digits.1599
+80106f90 digits.1601
 00000000 exec.c
 00000000 file.c
 00000000 fs.c
@@ -33,10 +33,10 @@
 00000000 ioapic.c
 00000000 kalloc.c
 00000000 kbd.c
-8010a5b4 shift.1440
-80107260 shiftcode
-80107160 togglecode
-80107140 charcode.1441
+8010a5b4 shift.1442
+801072c0 shiftcode
+801071c0 togglecode
+801071a0 charcode.1443
 80108200 normalmap
 80108100 shiftmap
 80108000 ctlmap
@@ -53,14 +53,14 @@
 00000000 pipe.c
 00000000 proc.c
 801035a0 allocproc
-8010a000 first.1641
+8010a000 first.1643
 8010a5b8 initproc
-80107520 states.1667
+80107580 states.1669
 00000000 sleeplock.c
 00000000 spinlock.c
 00000000 string.c
 00000000 syscall.c
-801075a0 syscalls
+80107600 syscalls
 00000000 sysfile.c
 80104870 create
 80104a10 argfd.constprop.0
@@ -75,6 +75,7 @@
 801065c0 mappages
 80106650 deallocuvm.part.0
 8010a420 kmap
+00000000 prac_syscall.c
 80100270 consoleread
 8010648f vector242
 80105ee6 vector119
@@ -228,6 +229,7 @@
 80101740 iunlock
 80105530 sys_sleep
 8010652b vector255
+80106ec0 my_syscall
 801061b3 vector181
 80105cca vector59
 80105db4 vector85
@@ -254,6 +256,7 @@
 80106cb0 clearpteu
 80103770 myproc
 80105630 tvinit
+80106ee0 sys_my_syscall
 80105cd3 vector60
 80105b86 vector23
 80101630 idup
